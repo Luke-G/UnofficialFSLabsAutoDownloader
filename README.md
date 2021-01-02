@@ -1,5 +1,7 @@
 ## Unofficial Auto Downloader for  FlightSimLabs aircraft
 
+[Download](https://github.com/Luke-G/UnofficialFSLabsAutoDownloader/releases/download/1.0.0/ThirdPartyFlightSimLabsDownloaderTool.exe)
+
 I developed this because it is always a pain to go fishing through emails for your serial key and product key (3+ times) each time FlightSimLabs release an update, and also it was a fun quick project to work on.
 
 This tool will do the following:
