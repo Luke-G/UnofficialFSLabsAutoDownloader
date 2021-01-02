@@ -1,0 +1,19 @@
+﻿<Window x:Class="FlightSimLabsDownloader.Views.DownloadWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Icon="icon.ico"
+        Title="3rd Party Unofficial Auto Downloader for FlightSimLabs Aircraft" Height="522" Width="749" ResizeMode="CanMinimize">
+    <Grid Height="486" Background="#FF404040">
+        <ListBox Name="selectedDownloads" SelectionMode="Multiple" Margin="10,10,555,0" Height="195" VerticalAlignment="Top" Background="#FF4B4B4B" Foreground="White" BorderBrush="#FF5D5D5D" />
+
+        <Button Name="startDownloadButton" Content="Start Downloads" Click="StartDownloads" Margin="10,379,555,0" Height="42" VerticalAlignment="Top" Background="#FFD6D6D6" UseLayoutRounding="True" FontFamily="Segoe UI Semibold"></Button>
+        <Button Content="Open My Downloads" Click="OpenDownloadsFolder" Margin="10,424,555,0" Height="42" VerticalAlignment="Top" Background="#FFD6D6D6" />
+
+        <Button Content="?" Click="OpenAboutPage" Margin="129,353,558,0" Height="21" VerticalAlignment="Top" Background="#FFA8A8A8" />
+
+        <StackPanel Margin="194,10,10,36" Name="downloadsPanel" />
+    </Grid>
+</Window>

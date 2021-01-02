@@ -1,0 +1,15 @@
+﻿<Window x:Class="FlightSimLabsDownloader.Views.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d"
+        Icon="icon.ico"
+        Title="About" Height="547" Width="407" ResizeMode="CanMinimize">
+    <Grid Background="#FF404040">
+        <TextBlock Foreground="White" Text="Developed as an open source solution to automatically download FSLabs updates. This tool is not associated with FlightSimLabs in any way." TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Height="55" Width="304" Margin="10,10,0,0" />
+        <TextBlock Foreground="White" Text="How does it work? &#10;1) Reads your FlightSimLabs system registry entries &#10;2) Automatically visits https://redownload.flightsimlabs.com and enters the information from the registry &#10;3) Starts the download process and saves to your main Windows Downloads folder.  &#10;4) You then need to go to your downloads folder and install the software manually as if you downloaded it yourself. This tool just removes the painful part of the process.  &#10;  &#10;Note: This only works if you have previously installed each FSLabs aircraft. If none are showing, just use the normal method then try this again next time you wish. This wasn't built to be resilient so there may be bugs, but it works on my machine :^) " HorizontalAlignment="Left" Margin="10,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="231" Width="376" />
+        <TextBlock Foreground="White" Text="Is it safe?  &#10;All of the code is open source and viewable online. There is minimal code to make this application function and there are no plans to develop this any further. Hopefully FlightSimLabs can create their own soon™." HorizontalAlignment="Left" Margin="10,332,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="97" Width="376" />
+        <TextBlock Foreground="White" Text="But it looks sketchy. &#xA;Welcome to the Windows Presentation Foundation (WPF) framework :'(" HorizontalAlignment="Left" Margin="10,434,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="97" Width="376" />
+    </Grid>
+</Window>
