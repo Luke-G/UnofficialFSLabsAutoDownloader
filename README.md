@@ -11,6 +11,8 @@ You will need to manually open the .zip and install them yourself, but this take
 
 There are no guarantees on the stability of this tool, it isn't very resilient as it just works on my machine which was the end goal.
 
+### Use at your own risk. At this stage I will not provide any support for this.
+
 Feel free to take this and modify it further, perhaps even configure it to automatically run the installers!
 
 I have no affiliation with FlightSimLabs and as I have tried to make clear throughout the various names, this is not an official piece of software. That said, I hope you find some use of this.
