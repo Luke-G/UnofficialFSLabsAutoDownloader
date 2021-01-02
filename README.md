@@ -1,4 +1,4 @@
-## Unofficial Auto Downloader for  FlightSimLabs aircraft
+## Unofficial Auto Downloader for  FlightSimLabs Aircraft
 
 [Download](https://github.com/Luke-G/UnofficialFSLabsAutoDownloader/releases/download/1.0.0/ThirdPartyFlightSimLabsDownloaderTool.exe)
 
