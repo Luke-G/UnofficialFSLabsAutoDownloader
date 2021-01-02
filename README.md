@@ -9,6 +9,8 @@ This tool will do the following:
 - Submit the form on https://redownload.flightsimlabs.com behind the scenes for you.
 - Start downloading into your Downloads folder.
 
+To use, click on the aircraft you want to update then click on 'Start Downloads'. You will need to restart the program after any ongoing downloads are finished if you want to download more that you didn't initially select.
+
 You will need to manually open the .zip and install them yourself, but this takes away the most painful part.
 
 ### Use at your own risk. At this stage I will not provide any support for this.
