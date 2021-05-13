@@ -130,38 +130,38 @@ namespace FlightSimLabsDownloader.Views
                 if (downloadProgressMessage == null)
                     continue;
 
-                Dispatcher.InvokeAsync(() =>
-                {
-                    try
-                    {
-                        Grid downloadGrid = downloadsPanel.Children.Cast<Grid>()
-                            .First(q => q.Name.Contains(downloadProgressMessage!.Licence.GetLicenceLocatorToken()));
+                await Dispatcher.InvokeAsync(() =>
+                 {
+                     try
+                     {
+                         Grid downloadGrid = downloadsPanel.Children.Cast<Grid>()
+                             .First(q => q.Name.Contains(downloadProgressMessage!.Licence.GetLicenceLocatorToken()));
 
-                        IEnumerable<UIElement> gridChildren = downloadGrid.Children.Cast<UIElement>().ToList();
+                         IEnumerable<UIElement> gridChildren = downloadGrid.Children.Cast<UIElement>().ToList();
 
-                        if (downloadProgressMessage.Action == MessageAction.DOWNLOAD_HEADERS)
-                        {
-                            UIElement progressBarTopText = gridChildren
-                                .Where(q => q is TextBlock)
-                                .First(q => (q as TextBlock)!.Name.Contains("progressBarTopText"));
-                            (progressBarTopText as TextBlock)!.Text = message.Content;
-                        }
-                        else if (downloadProgressMessage.Action == MessageAction.DOWNLOAD_PROGRESS)
-                        {
-                            UIElement progressBarBottomText = gridChildren
-                                .Where(q => q is TextBlock)
-                                .First(q => (q as TextBlock)!.Name.Contains("progressBarBottomText"));
-                            (progressBarBottomText as TextBlock)!.Text = $"{message.Content}%";
+                         if (downloadProgressMessage.Action == MessageAction.DOWNLOAD_HEADERS)
+                         {
+                             UIElement progressBarTopText = gridChildren
+                                 .Where(q => q is TextBlock)
+                                 .First(q => (q as TextBlock)!.Name.Contains("progressBarTopText"));
+                             (progressBarTopText as TextBlock)!.Text = message.Content;
+                         }
+                         else if (downloadProgressMessage.Action == MessageAction.DOWNLOAD_PROGRESS)
+                         {
+                             UIElement progressBarBottomText = gridChildren
+                                 .Where(q => q is TextBlock)
+                                 .First(q => (q as TextBlock)!.Name.Contains("progressBarBottomText"));
+                             (progressBarBottomText as TextBlock)!.Text = $"{message.Content}%";
 
-                            UIElement progressBar = gridChildren.First(q => q is ProgressBar);
-                            (progressBar as ProgressBar)!.Value = message.Content;
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                    }
-                });
+                             UIElement progressBar = gridChildren.First(q => q is ProgressBar);
+                             (progressBar as ProgressBar)!.Value = message.Content;
+                         }
+                     }
+                     catch (Exception e)
+                     {
+                         Console.WriteLine(e);
+                     }
+                 });
             }
         }
 

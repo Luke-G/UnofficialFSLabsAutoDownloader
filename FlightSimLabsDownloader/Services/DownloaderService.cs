@@ -15,7 +15,7 @@ namespace FlightSimLabsDownloader.Services
     {
         private readonly Channel<Message> downloadChannel;
         private readonly HttpClient httpClient = new HttpClient();
-        private const string FlightSimLabsDownloadEndpoint = "https://redownload.flightsimlabs.com/";
+        private const string FlightSimLabsDownloadEndpoint = "https://redownload.flightsimlabs.com/index.aspx";
 
         public DownloaderService()
         {
@@ -33,6 +33,7 @@ namespace FlightSimLabsDownloader.Services
 
         /// <summary>
         /// Start the automation flow and begin downloading the product for a given licence.
+        /// This function is spaghetti, quickly rewritten to support FSL redownload changes.
         /// </summary>
         /// <param name="licence">The licence to download a product for.</param>
         /// <returns>Headers for the file being downloaded.</returns>
@@ -45,12 +46,11 @@ namespace FlightSimLabsDownloader.Services
                 .SelectSingleNode("//input[@id='__VIEWSTATE']")
                 .GetAttributeValue("value", string.Empty);
 
+            // Submit order ID.
             var requestParams = new List<KeyValuePair<string, string>>
             {
                 new KeyValuePair<string, string>("txtOrderId", licence.OrderId),
-                new KeyValuePair<string, string>("txtSerial", licence.SerialKey),
-                new KeyValuePair<string, string>("txtEmail", licence.EmailAddress),
-                new KeyValuePair<string, string>("__EVENTTARGET", "FindOrder"),
+                new KeyValuePair<string, string>("__EVENTTARGET", "LookupOrder"),
                 new KeyValuePair<string, string>("__VIEWSTATE", orderLookupViewstate)
             };
 
@@ -59,10 +59,8 @@ namespace FlightSimLabsDownloader.Services
 
             string orderLookupResponseString = await orderLookupResponse.Content.ReadAsStringAsync();
 
-            if (!orderLookupResponseString.Contains("Order lookup succeeded"))
-            {
+            if (!orderLookupResponseString.Contains("Get Download Links"))
                 Console.WriteLine("Failed to get a successful response.");
-            }
 
             var downloadDoc = new HtmlDocument();
             downloadDoc.LoadHtml(orderLookupResponseString);
@@ -74,8 +72,33 @@ namespace FlightSimLabsDownloader.Services
             requestParams.Remove(requestParams.Find(q => q.Key == "__VIEWSTATE"));
             requestParams.Add(new KeyValuePair<string, string>("__VIEWSTATE", downloadViewstate));
 
+
+            // Submit the additional request with email and key.
             requestParams.Remove(requestParams.Find(q => q.Key == "__EVENTTARGET"));
-            requestParams.Add(new KeyValuePair<string, string>("__EVENTTARGET", "btnDownload"));
+            requestParams.Add(new KeyValuePair<string, string>("__EVENTTARGET", "GetDownloads"));
+            requestParams.Add(new KeyValuePair<string, string>("txtSerial1", licence.SerialKey));
+            requestParams.Add(new KeyValuePair<string, string>("txtEmail", licence.EmailAddress));
+
+            HttpResponseMessage getDownloadLinksResponse = await httpClient.PostAsync(FlightSimLabsDownloadEndpoint,
+                new FormUrlEncodedContent(requestParams));
+
+            string getDownloadLinksResponseString = await getDownloadLinksResponse.Content.ReadAsStringAsync();
+            if (!getDownloadLinksResponseString.Contains("Order lookup succeeded"))
+                Console.WriteLine("Failed to get a successful response.");
+
+            // Get the download page.
+            var downloadDoc2 = new HtmlDocument();
+            downloadDoc2.LoadHtml(getDownloadLinksResponseString);
+
+            string downloadViewstate2 = downloadDoc2.DocumentNode
+                .SelectSingleNode("//input[@id='__VIEWSTATE']")
+                .GetAttributeValue("value", string.Empty);
+
+            requestParams.Remove(requestParams.Find(q => q.Key == "__VIEWSTATE"));
+            requestParams.Add(new KeyValuePair<string, string>("__VIEWSTATE", downloadViewstate2));
+
+            requestParams.Remove(requestParams.Find(q => q.Key == "__EVENTTARGET"));
+            requestParams.Add(new KeyValuePair<string, string>("__EVENTTARGET", "btnDownload1"));
 
             // Start the download.
             var downloadRequest = new HttpRequestMessage
